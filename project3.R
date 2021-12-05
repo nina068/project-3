@@ -28,7 +28,7 @@ ui <- fluidPage(
    2. This dataset is from Center for Disease Control and Prevention (CDC), link is https://data.cdc.gov/NCHS/U-S-Life-Expectancy-at-Birth-by-State-and-Census-T/5h56-n989. The variables in this dataset include State, County, Census Tract Number, Life Expectancy, Life Expectancy Range, Life Expectancy Standard Error,
   3. The main contents in this App contain an About page-a briefly introduction about the dataset and Shiny App, a Data exploration page - summary and plots of dataset, a Modeling page - there are three models to use for life expectancy prediction. and a Data page - view dataset and do some data manipulation in ths page.
   # 4.life expantancy picture is as bellow.")), 
-  a(href = "https://www.titlemax.com/media/life-expectancy-united-states-4.png", "life expactancy by state image" ), 
+  a(href = "https://www.titlemax.com/media/life-expectancy-united-states-4.png", "life expactancy by state image"), 
   
   # Data exploration page
   # define the sidebar with inputs
@@ -80,7 +80,7 @@ trCtrlNew <- trainControl(method = "repeatedcv", number = 5, repeats = 3),
   
 ## multiple linear regression
  column(4, "multiple linear model",
-       MLR <- lm(`Life Expectancy` ~ `State`+`County`, data = dataTrain))),
+       MLR <- lm(`Life Expectancy` ~ `State`+`County`, data = dataTrain)),
 
 actionButton("action", label = "model fitting"), 
 
@@ -95,8 +95,7 @@ summary(MLR))),
     class_Pred <- predict(class_Tree, newdata = dataTest), 
     MLR_pred <- predict(MLR, newdata = dataTest), 
     random_pred<-predict(random_forest, newdata = dataTest),
-    checkboxGroupInput("modelselect", label= c("class_Pred", "MLR_pred",                          "random_pred")),
-    ),
+    checkboxGroupInput("modelselect", label= c("class_Pred", "MLR_pred",                          "random_pred")))),
 
 
 ## page of "Data"
@@ -112,8 +111,7 @@ navbarPage("Data",
         
         data_row_file <- write_csv("D:/Statistics/ST 558/Project 3/project                                   -3/data_row.csv"),
         data_column_file <- write_csv("D:/Statistics/ST 558/Project 3                                          /project-3/data_row.csv"),
-        fileInput("file", label = c("rowfile", "columnfile"), data_row_file                            , data_column_file) 
-      ),
+        fileInput("file", label = c("rowfile", "columnfile"), data_row_file                            , data_column_file))))
 
 # mainpanel
   
@@ -131,7 +129,7 @@ mainPanel(
                         outputOptions("proprotion", "summary", "action")), 
                        tabPanel("Prediction", uiOutput("modelselect")))),
                navbarpage("Data",
-        outputOption("dataInput", "rowInput", "columnInput", "file")))))
+        outputOption("dataInput", "rowInput", "columnInput", "file"))))
 
 
 
@@ -165,6 +163,7 @@ server <- function(input, output) {
                                     max = max(n(data_column)))
   output$dataInput <- renderPrint(min = min(n(my_data$`Life Expectancy`), 
                        max = max(n(my_data$`Life Expectancy`)), step = 2))
+  output$modelselect <- renderUI(class_Pred, MLR_pred, random_pred)
 }
 
 
