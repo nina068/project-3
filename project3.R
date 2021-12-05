@@ -20,7 +20,7 @@ my_data <- data %>% drop_na()
 ##Define UI
 ui <- fluidPage(
   # Application title
-  titlePanel("My Shiny App"), i
+  titlePanel("My Shiny App"), 
   
   # About page
   navbarPage("About", 
@@ -150,6 +150,15 @@ server <- function(input, output) {
   output$table <- renderTable({
     table(my_data$State, my_data$`Life Expectancy`)
     table(my_data$County, my_data$`Life Expectancy`)})
+  output$a <- renderText()
+  output$b <- renderText()
+  output$proportion <- renderPrint(p = seq(from = 0, to = 1, by = 0.05))
+  output$summary <- renderPrint(
+                    summary(class_Tree),
+                    summary(random_forest),
+                    summary(MLR))
+  output$action <- renerUI(class_Tree, random_forest, MLR)
+  
   
 }
 
