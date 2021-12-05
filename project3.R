@@ -28,10 +28,7 @@ ui <- fluidPage(
    2. This dataset is from Center for Disease Control and Prevention (CDC), link is https://data.cdc.gov/NCHS/U-S-Life-Expectancy-at-Birth-by-State-and-Census-T/5h56-n989. The variables in this dataset include State, County, Census Tract Number, Life Expectancy, Life Expectancy Range, Life Expectancy Standard Error,
   3. The main contents in this App contain an About page-a briefly introduction about the dataset and Shiny App, a Data exploration page - summary and plots of dataset, a Modeling page - there are three models to use for life expectancy prediction. and a Data page - view dataset and do some data manipulation in ths page.
   # 4.life expantancy picture is as bellow.")), 
-  tags$h2("life expactancy image", href = ),
-  tags$a (href = )
-  
-  Link("D:/Statistics/ST 558/Project 3/project-3/life_expectancy"),
+  a(href = "https://www.titlemax.com/media/life-expectancy-united-states-4.png", "life expactancy by state image" ), 
   
   # Data exploration page
   # define the sidebar with inputs
@@ -104,7 +101,9 @@ summary(MLR))),
 
 ## page of "Data"
 navbarPage("Data",
-        sliderInput("dataInput", "number of data", min = min(my_data$`Life              Expectancy`), max = max(my_data$`Life Expectancy`), step = 2),
+        sliderInput("dataInput", "number of data", 
+                    min = min(n(my_data$`Life Expectancy`), 
+                       max = max(n(my_data$`Life Expectancy`)), step = 2),
              data_row <- my_data %>% filter(),
              data_column <- my_data %>% select(),
         numericInput("rowInput", value = data_row, min = min(n(data_row)),                      max = max(n(data_row))),
@@ -158,8 +157,14 @@ server <- function(input, output) {
                     summary(random_forest),
                     summary(MLR))
   output$action <- renerUI(class_Tree, random_forest, MLR)
-  
-  
+  output$file <- renderUI(data_row_file <- write_csv("D:/Statistics/ST 558                                        /Project 3/project-3/data_row.csv"),
+                          data_column_file <- write_csv("D:/Statistics/ST                                    558/Project 3 /project-3/data_row.csv"))
+  output$rowInput <- renderPrint( min = min(n(data_row)), 
+                                  max = max(n(data_row)))
+  output$columnInput <- renderPrint(min = min(n(data_column)), 
+                                    max = max(n(data_column)))
+  output$dataInput <- renderPrint(min = min(n(my_data$`Life Expectancy`), 
+                       max = max(n(my_data$`Life Expectancy`)), step = 2))
 }
 
 
