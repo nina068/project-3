@@ -47,8 +47,10 @@ shinyServer(function(input, output) {
                                   max = max(n(data_row)))
   output$columnInput <- renderPrint(min = min(n(data_column)), 
                                     max = max(n(data_column)))
-  output$dataInput <- renderPrint(min = min(n(my_data$`Life Expectancy`), 
-                                            max = max(n(my_data$`Life Expectancy`)), step = 2))
+  output$dataInput <- renderPrint( 
+                      data_column <- my_data %>% select(),
+                      data_row <- my_data %>% filter()
+  )
   output$modelselect <- renderUI(class_Pred, MLR_pred, random_pred)
 }
 )
