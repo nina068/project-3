@@ -1,4 +1,5 @@
 # project-3  
+** There are still some errors in widgets for both ui and server files. I do not have enough time to fix them. So just uploaded them. 
 1. The purpose of this App:   
 The purpose of the shiny App is to find the life expectancy of people in U.S.A. by state. The environmen among territories of U.S. is different like weather, green area, coastline area, etc. Also, the diet also varies. So, in this APP, we try to show how difference the life expectancy is by state in U.S.A..
 2. Packages     
